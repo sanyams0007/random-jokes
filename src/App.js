@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+import Dashboard from "./components/Dashboard";
+import Login from "./components/Login";
+import Jokes from "./components/Jokes";
+import Navbar from "./components/Navbar";
+import Typography from "@material-ui/core/Typography";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => {
+              return <Redirect to="/login" />;
+            }}
+          />
+          <Route path="/login" exact component={Login} />
+          <Route path="/dashboard" exact component={Dashboard} />
+          <Route path="/jokes" exact component={Jokes} />
+          <Route
+            path="*"
+            component={() => (
+              <Typography align="center">404 Error Page not exist</Typography>
+            )}
+          />
+        </Switch>
+      </Router>
     </div>
   );
 }
